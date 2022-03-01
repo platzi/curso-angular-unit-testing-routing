@@ -8,7 +8,7 @@ import { ProductComponent } from './../product/product.component';
 import { ValueService } from 'src/app/services/value.service';
 import { By } from '@angular/platform-browser';
 
-describe('ProductsComponent', () => {
+xdescribe('ProductsComponent', () => {
   let component: ProductsComponent;
   let fixture: ComponentFixture<ProductsComponent>;
   let productService: jasmine.SpyObj<ProductsService>;
