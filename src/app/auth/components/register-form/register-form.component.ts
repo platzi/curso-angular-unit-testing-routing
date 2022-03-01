@@ -10,7 +10,7 @@ import { UsersService } from './../../../services/user.service';
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent {
   form = this.fb.group(
     {
       name: ['', [Validators.required]],
@@ -29,8 +29,6 @@ export class RegisterFormComponent implements OnInit {
     private fb: FormBuilder,
     private usersService: UsersService
   ) {}
-
-  ngOnInit(): void {}
 
   register(event: Event) {
     event.preventDefault();

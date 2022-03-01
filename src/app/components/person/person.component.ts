@@ -6,23 +6,20 @@ import { Person } from './../../models/person';
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.scss']
 })
-export class PersonComponent implements OnInit {
+export class PersonComponent {
 
   @Input() person!: Person;
-  @Output() onSelected = new EventEmitter<Person>();
+  @Output() selected = new EventEmitter<Person>();
   imc = '';
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   calcIMC() {
     this.imc = this.person.calcIMC();
   }
 
   onClick() {
-    this.onSelected.emit(this.person);
+    this.selected.emit(this.person);
   }
 
 }

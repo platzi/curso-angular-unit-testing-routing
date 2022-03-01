@@ -109,7 +109,7 @@ describe('PersonComponent', () => {
     const buttonDe = queryById(fixture, 'btn-person');
 
     let selectedPerson: Person | undefined;
-    component.onSelected
+    component.selected
       .pipe(first())
       .subscribe((person: Person) => {
         selectedPerson = person;
@@ -126,7 +126,7 @@ describe('PersonComponent', () => {
 @Component({
   template: `
     <app-person
-      [person]="person" (onSelected)="onSelected($event)">
+      [person]="person" (selected)="onSelected($event)">
     </app-person>`
 })
 class TestHostComponent {

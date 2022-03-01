@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Calculator } from './calculator';
 
@@ -7,7 +7,7 @@ import { Calculator } from './calculator';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ng-testing-services';
 
   ngOnInit() {

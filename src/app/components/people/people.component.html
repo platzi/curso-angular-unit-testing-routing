@@ -11,6 +11,6 @@
   <app-person
     *ngFor="let person of people"
     [person]="person"
-    (onSelected)="onSelect($event)"
+    (selected)="onSelect($event)"
   ></app-person>
 </section>
