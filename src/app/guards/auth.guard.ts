@@ -27,6 +27,8 @@ export class AuthGuard implements CanActivate {
     //   return false;
     // }
     // return true;
+    route.paramMap.get('idProduct');
+    route.paramMap.has('idProduct');
     return this.authService.getUser()
     .pipe(
       map(user => {
