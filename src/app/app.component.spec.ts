@@ -3,6 +3,19 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 import { queryAllByDirective, RouterLinkDirectiveStub } from './../testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+
+@Component({
+  selector: 'app-banner'
+})
+// eslint-disable-next-line @angular-eslint/component-class-suffix
+class BannerComponentStub {}
+
+@Component({
+  selector: 'app-footer'
+})
+// eslint-disable-next-line @angular-eslint/component-class-suffix
+class FooterComponentStub {}
 
 fdescribe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -15,8 +28,11 @@ fdescribe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
+        BannerComponentStub,
+        FooterComponentStub,
         RouterLinkDirectiveStub
       ],
+      // schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 

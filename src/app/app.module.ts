@@ -13,6 +13,8 @@ import { PeopleComponent } from './components/people/people.component';
 import { OthersComponent } from './components/others/others.component';
 
 import { SharedModule } from './shared/shared.module';
+import { BannerComponent } from './components/banner/banner.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { SharedModule } from './shared/shared.module';
     PersonsComponent,
     PeopleComponent,
     OthersComponent,
+    BannerComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
