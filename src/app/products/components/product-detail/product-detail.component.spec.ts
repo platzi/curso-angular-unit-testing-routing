@@ -71,4 +71,11 @@ fdescribe('ProductDetailComponent', () => {
     expect(priceText).toContain(productMock.price);
     expect(productsService.getOne).toHaveBeenCalledWith(productId);
   });
+
+  it('should go to back without id params', () => {
+    route.setParamMap({});
+    location.back.and.callThrough(); // mocking
+    fixture.detectChanges(); //ngOnInit
+    expect(location.back).toHaveBeenCalled();
+  });
 });
