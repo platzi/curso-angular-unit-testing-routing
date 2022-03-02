@@ -15,12 +15,15 @@ export class AuthService {
 
   private apiUrl = `${environment.API_URL}/api/v1/auth`;
   private user = new BehaviorSubject<User | null>(null);
-  user$ = this.user.asObservable();
 
   constructor(
     private http: HttpClient,
     private tokenService: TokenService
   ) {
+  }
+
+  getUser() {
+    return this.user.asObservable();
   }
 
   getCurrentUser() {

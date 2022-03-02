@@ -4,6 +4,9 @@ import { AuthService } from "../services/auth.service";
 import { TokenService } from "../services/token.service";
 import { AuthGuard } from "./auth.guard";
 
+import { fakeActivatedRouteSnapshot, fakeRouterStateSnapshot, mockObservable } from './../../testing';
+import { generateOneUser } from "../models/user.mock";
+
 fdescribe('Tests for AuthGuard', () => {
   let guard: AuthGuard;
   let tokenService: jasmine.SpyObj<TokenService>;
@@ -12,7 +15,7 @@ fdescribe('Tests for AuthGuard', () => {
 
   beforeEach(() => {
     const tokenServiceSpy = jasmine.createSpyObj('TokenService', ['getToken']);
-    const authServiceSpy = jasmine.createSpyObj('AuthService', ['user$']);
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['getUser']);
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
     TestBed.configureTestingModule({
@@ -31,6 +34,34 @@ fdescribe('Tests for AuthGuard', () => {
 
   it('should be create', () => {
     expect(guard).toBeTruthy();
+  });
+
+  it('should return true with session', (doneFn) => {
+    const activatedRoute = fakeActivatedRouteSnapshot({});
+    const routerState = fakeRouterStateSnapshot({});
+
+    const userMock = generateOneUser();
+    authService.getUser.and.returnValue(mockObservable(userMock));
+
+    guard.canActivate(activatedRoute, routerState)
+    .subscribe(rta => {
+      expect(rta).toBeTrue();
+      doneFn();
+    });
+  });
+
+  it('should return false without session', (doneFn) => {
+    const activatedRoute = fakeActivatedRouteSnapshot({});
+    const routerState = fakeRouterStateSnapshot({});
+
+    authService.getUser.and.returnValue(mockObservable(null));
+
+    guard.canActivate(activatedRoute, routerState)
+    .subscribe(rta => {
+      expect(rta).toBeFalse();
+      expect(router.navigate).toHaveBeenCalledWith(['/home']);
+      doneFn();
+    });
   });
 
 });
