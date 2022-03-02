@@ -5,36 +5,8 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { clickElement, clickEvent, query, queryAllByDirective } from "src/testing";
 import { AppComponent } from "./app.component";
 
-
-@Component({
-  selector: 'app-people'
-})
-class PeopleComponent {}
-
-@Component({
-  selector: 'app-others'
-})
-class OthersComponent {}
-
-@Component({
-  selector: 'app-pico-preview'
-})
-class PicoPreviewComponent {}
-
-const routes = [
-  {
-    path: 'pico-preview',
-    component: PicoPreviewComponent
-  },
-  {
-    path: 'people',
-    component: PeopleComponent
-  },
-  {
-    path: 'others',
-    component: OthersComponent
-  },
-]
+import { routes } from './app-routing.module';
+import { AppModule } from './app.module';
 
 fdescribe('App Integration test', () => {
 
@@ -45,13 +17,8 @@ fdescribe('App Integration test', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes(routes)
-      ],
-      declarations: [
-        AppComponent,
-        PeopleComponent,
-        PicoPreviewComponent,
-        OthersComponent
+        AppModule,
+        RouterTestingModule.withRoutes(routes),
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -79,7 +46,7 @@ fdescribe('App Integration test', () => {
     expect(links.length).toEqual(7);
   });
 
-  it('should render OthersComponent when clicked', fakeAsync(() => {
+  it('should render OtherComponent when clicked', fakeAsync(() => {
     clickElement(fixture, 'others-link', true);
 
     tick(); // wait while nav...
@@ -87,6 +54,17 @@ fdescribe('App Integration test', () => {
 
     expect(router.url).toEqual('/others');
     const element = query(fixture, 'app-others');
+    expect(element).not.toBeNull();
+  }))
+
+  it('should render PicoPreviewComponent when clicked', fakeAsync(() => {
+    clickElement(fixture, 'pico-link', true);
+
+    tick(); // wait while nav...
+    fixture.detectChanges(); // ngOnInit - PicoPreviewComponent
+
+    expect(router.url).toEqual('/pico-preview');
+    const element = query(fixture, 'app-pico-preview');
     expect(element).not.toBeNull();
   }))
 
