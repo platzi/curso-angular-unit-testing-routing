@@ -1,7 +1,8 @@
 import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, fakeAsync, TestBed, tick } from "@angular/core/testing";
-import { Router } from "@angular/router";
+import { Router, RouterLinkWithHref } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
+import { clickElement, clickEvent, query, queryAllByDirective } from "src/testing";
 import { AppComponent } from "./app.component";
 
 
@@ -66,11 +67,27 @@ fdescribe('App Integration test', () => {
     router.initialNavigation();
 
     tick(); // wait while nav...
-    fixture.detectChanges();
+    fixture.detectChanges(); // ngOnInit
   }));
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should there are 7 routerLinks', () => {
+    const links = queryAllByDirective(fixture, RouterLinkWithHref);
+    expect(links.length).toEqual(7);
+  });
+
+  it('should render OthersComponent when clicked', fakeAsync(() => {
+    clickElement(fixture, 'others-link', true);
+
+    tick(); // wait while nav...
+    fixture.detectChanges(); // ngOnInit - OthersComponent
+
+    expect(router.url).toEqual('/others');
+    const element = query(fixture, 'app-others');
+    expect(element).not.toBeNull();
+  }))
 
 });
