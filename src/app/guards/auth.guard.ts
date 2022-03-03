@@ -27,13 +27,13 @@ export class AuthGuard implements CanActivate {
     //   return false;
     // }
     // return true;
-    route.paramMap.get('idProduct');
-    route.paramMap.has('idProduct');
+    // route.paramMap.get('idProduct');
+    // route.paramMap.has('idProduct');
     return this.authService.getUser()
     .pipe(
       map(user => {
         if(!user) {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
           return false;
         }
         return true;
